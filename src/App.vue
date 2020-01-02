@@ -1,56 +1,149 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+  <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
+      clipped="$vuetify.breakpoint.mdAndUp"
+      app
+    >
+      <v-list dense>
+        <template v-for="item in items">
+          <v-row v-if="item.heading" :key="item.heading" align="center">
+            <v-col cols="6">
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
+            </v-col>
+            <v-col cols="6" class="text-center">
+              <a href="#!" class="body-2 black--text">EDIT</a>
+            </v-col>
+          </v-row>
+          <v-list-group
+            v-else-if="item.children"
+            :key="item.text"
+            v-model="item.model"
+            :prepend-icon="item.model ? item.icon : item['icon-alt']"
+            append-icon=""
+          >
+            <template v-slot:activator>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ item.text }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <v-list-item v-for="(child, i) in item.children" :key="i" link>
+              <v-list-item-action v-if="child.icon">
+                <v-icon>{{ child.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ child.text }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+          <v-list-item v-else :key="item.text" link>
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ item.text }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+      </v-list>
+    </v-navigation-drawer>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.mdAndUp"
+      app
+      color="blue darken-3"
+      dark
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
+        <span class="hidden-sm-and-down">SCAD</span>
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn icon>
+        <v-icon>mdi-apps</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-bell</v-icon>
+      </v-btn>
+      <v-btn icon large>
+        <v-avatar size="32px" item>
+          <v-img
+            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
+            alt="Vuetify"
+        /></v-avatar>
       </v-btn>
     </v-app-bar>
-
     <v-content>
-      <HelloWorld />
+      <v-container class="fill-height" fluid>
+        <v-row align="center" justify="center">
+          <v-tooltip right>
+            <template v-slot:activator="{ on }">
+              <v-btn :href="source" icon large target="_blank" v-on="on">
+                <v-icon large>mdi-code-tags</v-icon>
+              </v-btn>
+            </template>
+            <span>Source</span>
+          </v-tooltip>
+          <v-tooltip right>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                icon
+                large
+                href="https://codepen.io/johnjleider/pen/MNYLdL"
+                target="_blank"
+                v-on="on"
+              >
+                <v-icon large>mdi-codepen</v-icon>
+              </v-btn>
+            </template>
+            <span>Codepen</span>
+          </v-tooltip>
+        </v-row>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
 export default {
-  name: "App",
-
-  components: {
-    HelloWorld
+  name: "app",
+  props: {
+    source: String
   },
-
   data: () => ({
-    //
+    dialog: false,
+    drawer: null,
+    items: [
+      { icon: "fa-columns", text: "Dashboard" },
+      { icon: "fa-home", text: "League Home" },
+      { icon: "fa-list-ul", text: "My Team" },
+      { icon: "fa-users", text: "Free Agents" },
+      { icon: "fa-cog", text: "League Settings" },
+      { icon: "fa-signout", text: "Log Out" },
+      {
+        icon: "mdi-chevron-up",
+        "icon-alt": "mdi-chevron-down",
+        text: "More",
+        model: false,
+        children: [
+          { text: "Import" },
+          { text: "Export" },
+          { text: "Print" },
+          { text: "Undo changes" },
+          { text: "Other contacts" }
+        ]
+      }
+    ]
   })
 };
 </script>

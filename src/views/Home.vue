@@ -2,6 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <Dashboard msg="Welcome to Your SCAD App" />
+    <h1>home</h1>
   </div>
 </template>
 
