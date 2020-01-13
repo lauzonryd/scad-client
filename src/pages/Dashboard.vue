@@ -1,12 +1,16 @@
 <template>
-    <div>
-        <h3>League Home</h3>
-    </div>
+  <div>
+    <h3>Dashboard</h3>
+  </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
 
+    }
+  }
 }
 </script>
 

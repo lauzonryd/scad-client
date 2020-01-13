@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -12,10 +12,8 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          SCAD
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -26,65 +24,65 @@
       content-class="bg-grey-2"
     >
       <q-list>
-        <q-item-label header>Essential Links</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
+        <q-item-label header>Welcome, ~name here~</q-item-label>
+        <q-item @click="navigate('dashboard')" tag="a" target="_blank">
           <q-item-section avatar>
-            <q-icon name="school" />
+            <q-icon name="dashboard" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Docs</q-item-label>
+            <q-item-label>Dashboard</q-item-label>
             <q-item-label caption>quasar.dev</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://github.quasar.dev">
+        <q-item @click="navigate('league-home')" tag="a" target="_blank">
           <q-item-section avatar>
-            <q-icon name="code" />
+            <q-icon name="home" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Github</q-item-label>
-            <q-item-label caption>github.com/quasarframework</q-item-label>
+            <q-item-label>League Home</q-item-label>
+            <q-item-label caption>~League Name~</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://chat.quasar.dev">
+        <q-item @click="navigate('my-team')" tag="a" target="_blank">
           <q-item-section avatar>
-            <q-icon name="chat" />
+            <q-icon name="list" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Discord Chat Channel</q-item-label>
-            <q-item-label caption>chat.quasar.dev</q-item-label>
+            <q-item-label>My Team</q-item-label>
+            <q-item-label caption> ~Team Name~</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://forum.quasar.dev">
+        <q-item @click="navigate('matchup')" tag="a" target="_blank">
           <q-item-section avatar>
-            <q-icon name="record_voice_over" />
+            <q-icon name="event" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Forum</q-item-label>
-            <q-item-label caption>forum.quasar.dev</q-item-label>
+            <q-item-label>Matchups</q-item-label>
+            <q-item-label caption>~Your Team vs Opponent~</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://twitter.quasar.dev">
+        <q-item @click="navigate('free-agents')" tag="a" target="_blank">
           <q-item-section avatar>
-            <q-icon name="rss_feed" />
+            <q-icon name="people" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Twitter</q-item-label>
-            <q-item-label caption>@quasarframework</q-item-label>
+            <q-item-label>Free Agents</q-item-label>
+            <q-item-label caption>Free Agents</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://facebook.quasar.dev">
+        <q-item @click="navigate('league-settings')" tag="a" target="_blank">
           <q-item-section avatar>
-            <q-icon name="public" />
+            <q-icon name="settings_applications" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Facebook</q-item-label>
-            <q-item-label caption>@QuasarFramework</q-item-label>
+            <q-item-label>Leage Settings</q-item-label>
+            <q-item-label caption>League Settings</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container >
       <router-view />
     </q-page-container>
   </q-layout>
@@ -96,8 +94,18 @@ export default {
 
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: true
+    }
+  },
+  methods: {
+    navigate: function (nav) {
+    // Do what you want here.
+      console.log('in MyLayout navigate')
+      this.$router.push({
+        path: nav
+      })
     }
   }
+
 }
 </script>

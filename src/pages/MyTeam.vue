@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <h3> My Team </h3>
+  </div>
 </template>
 
 <script>
