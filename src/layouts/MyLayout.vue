@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          SCAD
+          {{ appName }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -82,7 +82,7 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container >
+    <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -97,15 +97,21 @@ export default {
       leftDrawerOpen: true
     }
   },
+  mounted () {},
+  computed: {
+    appName () {
+      console.log('[MyLayout] - appName()', this.$store.state.modules.appName)
+      return this.$store.state.modules.appName
+    }
+  },
   methods: {
     navigate: function (nav) {
-    // Do what you want here.
+      // Do what you want here.
       console.log('in MyLayout navigate')
       this.$router.push({
         path: nav
       })
     }
   }
-
 }
 </script>
